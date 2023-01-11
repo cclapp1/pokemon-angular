@@ -13,7 +13,7 @@ export class DetailViewComponent {
 
   ngOnInit(): void {
     let routeId = Number(this.route.snapshot.paramMap.get('id'))
-    this.pokeSrv.getById(1).subscribe(p => this.currentPokemon = p)
+    this.pokeSrv.getById(routeId).subscribe(p => this.currentPokemon = p)
   }
 
   constructor(public route: ActivatedRoute, public pokeSrv: PokemonService) { }

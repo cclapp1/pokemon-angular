@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
-import { catchError, EMPTY, Observable } from 'rxjs'
+import { Observable } from 'rxjs'
 import { map, of } from 'rxjs'
-import { tap } from 'rxjs/operators'
 
 import pokeData from '../../pokemon.json'
 import { Pokemon } from '../pokeModel'
