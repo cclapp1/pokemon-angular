@@ -1,0 +1,61 @@
+[
+    {
+        "id": 1,
+        "name": "Charizard",
+        "pokemonType": "Fire",
+        "weight": 500,
+        "moveSet": [
+            "Tackle",
+            "Flamethrower"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Eeeve",
+        "pokemonType": "Normal",
+        "weight": 14,
+        "moveSet": [
+            "Tackle",
+            "Run Away"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Lucario",
+        "pokemonType": "Aura",
+        "weight": 119,
+        "moveSet": [
+            "Inner Focus",
+            "Steadfast"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Lycanrock",
+        "pokemonType": "Rock",
+        "weight": 55,
+        "moveSet": [
+            "Sand Rush",
+            "Keen Eye"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Sylveon",
+        "pokemonType": "Fairy",
+        "weight": 52,
+        "moveSet": [
+            "Steel",
+            "Poison"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Raichu",
+        "pokemonType": "Electric",
+        "weight": 66,
+        "moveSet": [
+            "Static"
+        ]
+    }
+]

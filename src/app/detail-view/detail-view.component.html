@@ -1,0 +1,12 @@
+<h1>hello</h1>
+<div *ngIf="currentPokemon">
+    <div>
+        <h1>Name: {{currentPokemon.name}}</h1>
+        <h3>Weight: {{currentPokemon.weight}}</h3>
+        <h3>ID: {{currentPokemon.id}}</h3>
+        <h3>Moves:</h3>
+        <ul *ngFor="let move of currentPokemon.moveSet">
+            <li>{{move}}</li>
+        </ul>
+    </div>
+</div>
