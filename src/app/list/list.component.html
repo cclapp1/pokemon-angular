@@ -1,7 +1,17 @@
-<div class="container" *ngFor="let pokemon of pokeList">
+<div class="center">
+    <button routerLink="" id="pokeLink">List All Pokemon</button>
+</div>
+
+<div class="container" *ngFor="let pokemon of pokePage?.pokemonList">
     <div class="pokeContent">
-        <img src="{{pokemon.img}}" />
-        <button routerLink="details/{{pokemon.name}}">{{pokemon.name.substring(0,1).toUpperCase() +
+        <div id="image"><img src="{{pokemon.img}}" /></div>
+        <button routerLink="/details"
+            [queryParams]="{'prevPage':pokePage?.currentPage, 'name':pokemon.name}">{{pokemon.name.substring(0,1).toUpperCase()
+            +
             pokemon.name.substring(1,pokemon.name.length)}}</button>
     </div>
 </div>
+<app-page [lastPage]="lastPage" [currentPage]="pokePage?.currentPage || 1" (nextClicked)="loadNext()"
+    (prevClicked)="loadPrev()"></app-page>
+
+<!-- [prevPage]="prevPage" [nextPage]="nextPage"  -->

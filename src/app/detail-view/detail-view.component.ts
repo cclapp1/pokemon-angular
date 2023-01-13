@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../services/pokemon.service';
 import { Pokemon } from '../models/pokeModel';
@@ -10,12 +10,16 @@ import { Pokemon } from '../models/pokeModel';
 })
 export class DetailViewComponent {
   currentPokemon: Pokemon | undefined
+  returnPage: number = 1
 
   ngOnInit(): void {
-    let name = String(this.route.snapshot.paramMap.get('name'))
+    let name = String(this.route.snapshot.queryParamMap.get('name'))
     this.pokeSrv.getByName(name).subscribe(item => { this.currentPokemon = item })
+
+    let prevPage = this.route.snapshot.queryParamMap.get('prevPage')
+    if (prevPage) this.returnPage = Number(prevPage)
   }
 
-  constructor(public route: ActivatedRoute, public pokeSrv: PokemonService) { }
+  constructor(private route: ActivatedRoute, private pokeSrv: PokemonService) { }
 
 }

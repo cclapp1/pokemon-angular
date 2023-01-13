@@ -5,9 +5,19 @@
 }
 
 body {
-    text-align: center;
-    background-image: url('./assets/wallpaper.jpg');
     font-family: 'pokemon';
     background-repeat: no-repeat;
     background-size: cover;
+    background-image: url('./assets/wallpaper.jpg');
+}
+
+#pokeLink {
+    font-size: 30px;
+    font-family: 'pokemon';
+    margin-bottom: 10px;
+    background-color: rgb(226, 197, 36);
+    border-radius: 15px;
+    border-width: 5px;
+    border-color: orange;
+    cursor: pointer;
 }

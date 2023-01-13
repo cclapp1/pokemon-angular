@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs'
 
-import { pokeModel, Pokemon } from '../models/pokeModel'
+import { Page, pokeModel, Pokemon } from '../models/pokeModel'
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +11,15 @@ import { pokeModel, Pokemon } from '../models/pokeModel'
 export class PokemonService {
   baseURL: string = 'https://pokeapi.co/api/v2'
 
-  getAll(): Observable<pokeModel[]> {
-    return this.http.get<Pokemon>(`${this.baseURL}/pokemon`).pipe(map((data: any) => {
+  getAll(page: number = 1, numPokemon: number = 20): Observable<Page> {
+    const offset = 20 * (page - 1)
+    return this.http.get<Pokemon>(`${this.baseURL}/pokemon`, { params: { 'offset': offset, 'limit': String(numPokemon) } }).pipe(map((data: any) => {
       let pokeList: pokeModel[] = []
       data.results.forEach((p: any) => {
         let pokemon = new pokeModel(p.name, p.url)
         pokeList.push(pokemon)
       })
-      return pokeList
+      return new Page(page, data.count, numPokemon, pokeList)
     }))
   }
 

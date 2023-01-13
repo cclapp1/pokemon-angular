@@ -31,3 +31,17 @@ export class pokeModel {
         this.img = ''
     }
 }
+
+export class Page {
+    currentPage: number
+    total: number
+    limit: number
+    pokemonList: pokeModel[]
+
+    constructor(c: number, t: number, l: number, p: pokeModel[]) {
+        this.currentPage = c
+        this.total = t
+        this.limit = l
+        this.pokemonList = p
+    }
+}

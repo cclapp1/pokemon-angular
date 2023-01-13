@@ -1,3 +1,6 @@
+<div style="text-align: center;">
+    <button routerLink="" [queryParams]="{'page':returnPage}" id="pokeLink">Back To List</button>
+</div>
 <div class="container" *ngIf="currentPokemon">
     <div>
         <h1>Name: <i>{{currentPokemon.name.substring(0,1).toUpperCase() +
