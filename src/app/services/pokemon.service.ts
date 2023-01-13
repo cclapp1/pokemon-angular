@@ -24,13 +24,13 @@ export class PokemonService {
 
   getByName(name: string): Observable<Pokemon> {
     return this.http.get<Pokemon>(`${this.baseURL}/pokemon/${name}`).pipe(map((item: any) => {
-      return new Pokemon(item.name, item.height, item.base_experience, item.weight, item.id, item.sprites.front_default)
+      return new Pokemon(item.name, item.height, item.base_experience, item.weight, item.id, [item.sprites.front_default, item.sprites.front_shiny])
     }))
   }
 
   getSprite(name: string): Observable<string> {
     return this.getByName(name).pipe(map(data => {
-      return data.image
+      return data.image[0]
     }))
   }
 

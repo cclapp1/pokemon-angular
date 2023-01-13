@@ -4,9 +4,9 @@ export class Pokemon {
     baseExp: number
     weight: number
     id: number
-    image: string
+    image: string[]
 
-    constructor(n: string, h: number, b: number, w: number, i: number, img: string) {
+    constructor(n: string, h: number, b: number, w: number, i: number, img: string[]) {
         this.name = n
         this.height = h
         this.baseExp = b
