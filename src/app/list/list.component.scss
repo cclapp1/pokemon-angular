@@ -1,18 +1,46 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url('../../assets/pokeFont.ttf');
+}
+
+
 button {
-    background-color: #a45fbc;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
     display: inline-block;
-    font-size: 36px;
-    margin: 4px 2px;
-    border-radius: 8px;
+    font-size: 28px;
+    border-radius: 15px;
+    border-width: 5px;
     cursor: pointer;
     transition-duration: 200ms;
+    font-family: 'pokemon';
+    text-align: left;
+    background-color: rgb(228 57 61);
+    border-color: rgb(47, 47, 47);
 }
 
 button:hover {
-    background-color: rgb(114, 28, 64);
+    background-color: rgb(245, 168, 176);
+    border-color: rgb(252, 13, 27);
+}
+
+.container {
+    width: calc(33% - 20px);
+    display: inline-block;
+    margin: 10px;
+}
+
+.pokeContent {
+    display: flex;
+    align-items: center;
+}
+
+@media(max-width: 1000px) {
+    .container {
+        width: calc(50% - 20px);
+    }
+}
+
+@media(max-width: 600px) {
+    .container {
+        width: calc(100% - 20px);
+    }
 }

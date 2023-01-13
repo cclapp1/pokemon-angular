@@ -1,11 +1,12 @@
 <div class="container" *ngIf="currentPokemon">
     <div>
-        <h1>Name: {{currentPokemon.name}}</h1>
-        <h3>Weight: {{currentPokemon.weight}}</h3>
-        <h3>ID: {{currentPokemon.id}}</h3>
-        <h3>Moves:</h3>
-        <ul *ngFor="let move of currentPokemon.moveSet">
-            <li>{{move}}</li>
-        </ul>
+        <h1>Name: <i>{{currentPokemon.name.substring(0,1).toUpperCase() +
+                currentPokemon.name.substring(1,currentPokemon.name.length)}}</i></h1>
+        <h3>Weight: <i>{{currentPokemon.weight}}</i></h3>
+        <h3>Height: <i>{{currentPokemon.height}}</i></h3>
+        <h3>Base Experience: <i>{{currentPokemon.baseExp}}</i></h3>
+        <h3>ID: <i>{{currentPokemon.id}}</i></h3>
+        <img src="{{currentPokemon.image}}" />
+        <img src="{{currentPokemon.image}}" />
     </div>
 </div>

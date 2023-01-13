@@ -1,3 +1,7 @@
-<div *ngFor="let pokemon of pokeSrv.getAll() | async">
-    <button routerLink="details/{{pokemon.id}}">{{pokemon.name}}</button>
+<div class="container" *ngFor="let pokemon of pokeList">
+    <div class="pokeContent">
+        <img src="{{pokemon.img}}" />
+        <button routerLink="details/{{pokemon.name}}">{{pokemon.name.substring(0,1).toUpperCase() +
+            pokemon.name.substring(1,pokemon.name.length)}}</button>
+    </div>
 </div>

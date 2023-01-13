@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'pokemon';
+    src: url('./assets/pokeFont.ttf');
+}
+
 body {
     text-align: center;
+    background-image: url('./assets/wallpaper.jpg');
+    font-family: 'pokemon';
+    background-repeat: no-repeat;
+    background-size: cover;
 }

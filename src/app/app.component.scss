@@ -1,4 +1,23 @@
+@font-face {
+    font-family: 'pokemontitle';
+    src: url('../assets/title.ttf');
+}
+
+@font-face {
+    font-family: 'pokemon';
+    src: url('../assets/pokeFont.ttf');
+}
+
 #title {
     font-size: 50px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'pokemontitle';
+    color: yellow;
+}
+
+button {
+    font-size: 30px;
+    font-family: 'pokemon';
+    margin-bottom: 10px;
+    background-color: rgb(226, 197, 36);
+    cursor: pointer;
 }
