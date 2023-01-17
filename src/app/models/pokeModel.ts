@@ -5,14 +5,32 @@ export class Pokemon {
     weight: number
     id: number
     image: string[]
+    moves: Move[]
 
-    constructor(n: string, h: number, b: number, w: number, i: number, img: string[]) {
+    constructor(n: string, h: number, b: number, w: number, i: number, img: string[], m: Move[]) {
         this.name = n
         this.height = h
         this.baseExp = b
         this.weight = w
         this.id = i
         this.image = img
+        this.moves = m
+    }
+}
+
+export class Move {
+    name: string
+    accuracy: number
+    power: number
+    pp: number
+    desc: string
+
+    constructor(n: string, a: number, po: number, pp: number, d: string) {
+        this.name = n
+        this.accuracy = a
+        this.power = po
+        this.pp = pp
+        this.desc = d
     }
 }
 

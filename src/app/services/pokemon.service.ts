@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { concat, concatMap, Observable, of, tap, zip } from 'rxjs'
+import { concat, concatMap, Observable, of, take, tap, zip } from 'rxjs'
 import { map } from 'rxjs'
 
-import { Page, pokeModel, Pokemon } from '../models/pokeModel'
+import { Move, Page, pokeModel, Pokemon } from '../models/pokeModel'
 
 @Injectable({
   providedIn: 'root'
@@ -31,14 +31,33 @@ export class PokemonService {
   }
 
   getByName(name: string): Observable<Pokemon> {
-    return this.http.get<Pokemon>(`${this.baseURL}/pokemon/${name}`).pipe(map((item: any) => {
-      return new Pokemon(item.name, item.height, item.base_experience, item.weight, item.id, [item.sprites.front_default, item.sprites.front_shiny])
-    }))
+    return this.http.get<Pokemon>(`${this.baseURL}/pokemon/${name}`).pipe(
+      concatMap((details: any) => {
+        return this.getMoves(details.moves).pipe(map(moves => {
+          details.moves = moves
+          return details
+        }))
+      }),
+      map((item: any) => {
+        return new Pokemon(item.name, item.height, item.base_experience, item.weight, item.id, [item.sprites.front_default, item.sprites.front_shiny], item.moves)
+      }))
+  }
+
+  getMoves(moves: any[]): Observable<Move[]> {
+    let returnArr: Observable<Move>[] = []
+    for (let i = 0; i < moves.length && i < 5; i++) {
+      returnArr.push(
+        this.http.get(`${this.baseURL}/move/${moves[i].move.name}`).pipe(map((m: any) => {
+          return new Move(m.name, m.accuracy, m.power, m.pp, m.flavor_text_entries[0].flavor_text)
+        }))
+      )
+    }
+    return zip(returnArr)
   }
 
   getSprite(name: string): Observable<string> {
-    return this.getByName(name).pipe(map(data => {
-      return data.image[0]
+    return this.http.get<string>(`${this.baseURL}/pokemon/${name}`).pipe(map((p: any) => {
+      return p.sprites.front_default
     }))
   }
 

@@ -15,6 +15,4 @@ export class PageComponent {
   nextClicked: EventEmitter<void> = new EventEmitter<void>
   @Output()
   prevClicked: EventEmitter<void> = new EventEmitter<void>
-
-
 }

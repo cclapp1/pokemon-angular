@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-    <button routerLink="" [queryParams]="{'page':returnPage}" id="pokeLink">Back To List</button>
+    <button routerLink="" [queryParams]="{'page':currentPage?.currentPage}" id="pokeLink">Back To List</button>
 </div>
 <div class="container" *ngIf="currentPokemon">
     <div>
@@ -11,8 +11,16 @@
         <h3>ID: <i>{{currentPokemon.id}}</i></h3>
         <img src="{{currentPokemon.image[0]}}" />
         <img src="{{currentPokemon.image[1]}}" />
+
+        <h2>Moves:</h2>
+        <div *ngFor="let move of currentPokemon.moves">
+            <h3>{{move.name}}</h3>
+            Accuracy: <i>{{move.accuracy}}</i> | Power: <i>{{move.power}}</i> | PP: <i>{{move.pp}}</i>
+            <br>
+            Description: "{{move.desc}}"
+        </div>
     </div>
 </div>
 
-<app-page [lastPage]="lastPage" [currentPage]="currentPokemonNum|| 1" (nextClicked)="loadNext()"
+<app-page [lastPage]="lastPage" [currentPage]="getPageOffset() + currentPokemonNum" (nextClicked)="loadNext()"
     (prevClicked)="loadPrev()"></app-page>
