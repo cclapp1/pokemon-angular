@@ -27,8 +27,8 @@ export class DetailViewComponent {
     if (this.lastPage && this.currentPokemonNum != this.currentPage?.total) this.lastPage = false
 
     //Checks to see if the page needs to be changed (1st case), advances the pokemon (else)
-    if (this.currentPokemonNum - this.getPageOffset() == 1) this.router.navigate(['details'], { queryParams: { 'prevPage': Number(this.currentPage!.currentPage - 1), 'pokeNum': 20 } })
-    else this.router.navigate(['details'], { queryParams: { 'prevPage': Number(this.currentPage!.currentPage), 'pokeNum': Number(this.currentPokemonNum) - 1 } })
+    if (this.currentPokemonNum - this.getPageOffset() == 1) this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage - 1), 'pokeNum': 20 } })
+    else this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage), 'pokeNum': Number(this.currentPokemonNum) - 1 } })
 
   }
 
@@ -39,16 +39,16 @@ export class DetailViewComponent {
 
     //Same logic as above method, just for loading next instead of previous
     if (this.currentPokemonNum - this.getPageOffset() == this.currentPage?.limit) {
-      this.router.navigate(['details'], { queryParams: { 'prevPage': Number(this.currentPage!.currentPage + 1), 'pokeNum': 1 } })
-    } else this.router.navigate(['details'], { queryParams: { 'prevPage': Number(this.currentPage!.currentPage), 'pokeNum': Number(this.currentPokemonNum) + 1 } })
+      this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage + 1), 'pokeNum': 1 } })
+    } else this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage), 'pokeNum': Number(this.currentPokemonNum) + 1 } })
   }
 
   //Loads the page based on what is inside the currentPage locally or the query string
   loadPage(query: any): Observable<any> {
-    let prevPage = query.get('prevPage')
+    let page = query.get('page')
     let pageFetch: number = this.currentPage?.currentPage || 1
 
-    if (Number(prevPage) != this.currentPage?.currentPage) pageFetch = Number(prevPage)
+    if (Number(page) != this.currentPage?.currentPage) pageFetch = Number(page)
 
     return this.pokeSrv.getAll(pageFetch, 20).pipe(map(p => {
       query.page = p

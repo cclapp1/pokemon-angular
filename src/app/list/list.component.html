@@ -4,9 +4,9 @@
 
 <div class="container" *ngFor="let pokemon of pokePage?.pokemonList; index as i">
     <div class="pokeContent">
-        <div id="image"><img src="{{pokemon.img}}" /></div>
+        <div><img id="image" src="{{pokemon.img}}" /></div>
         <button routerLink="/details"
-            [queryParams]="{'prevPage':pokePage?.currentPage, 'name':pokemon.name, 'pokeNum':i+1}">{{pokemon.name.substring(0,1).toUpperCase()
+            [queryParams]="{'page':pokePage?.currentPage, 'pokeNum':i+1}">{{pokemon.name.substring(0,1).toUpperCase()
             +
             pokemon.name.substring(1,pokemon.name.length)}}</button>
     </div>

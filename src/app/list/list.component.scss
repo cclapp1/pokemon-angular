@@ -31,11 +31,15 @@ button:hover {
 .pokeContent {
     display: flex;
     align-items: center;
-    justify-self: flex-start;
 }
 
 .center {
     text-align: center;
+}
+
+#image {
+    width: 100px;
+    height: 100px;
 }
 
 @media(max-width: 1000px) {
