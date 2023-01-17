@@ -19,7 +19,9 @@ export class DetailViewComponent {
 
   //Caluclates the offset of the pokemon for lookup purposes
   getPageOffset(): number {
-    return (this.currentPage!.currentPage - 1) * this.currentPage!.limit
+    if (this.currentPage)
+      return (this.currentPage.currentPage - 1) * this.currentPage.limit
+    return 0
   }
 
   loadPrev(): void {
