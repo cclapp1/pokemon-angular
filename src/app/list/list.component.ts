@@ -29,11 +29,6 @@ export class ListComponent {
   changePage(page?: number, limit?: number): void {
     this.pokeSrv.getAll(page, limit).subscribe(page => {
       this.pokePage = page
-      this.pokePage.pokemonList.forEach(p => {
-        this.pokeSrv.getSprite(p.name).subscribe(img => {
-          p.setImg(img)
-        })
-      })
     })
 
   }
