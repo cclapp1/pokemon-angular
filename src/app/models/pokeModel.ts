@@ -21,14 +21,10 @@ export class pokeModel {
     url: string
     img: string
 
-    setImg(img: string): void {
-        this.img = img
-    }
-
-    constructor(n: string, u: string) {
+    constructor(n: string, u: string, i: string) {
         this.name = n
         this.url = u
-        this.img = ''
+        this.img = i
     }
 }
 

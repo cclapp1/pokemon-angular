@@ -13,3 +13,6 @@
         <img src="{{currentPokemon.image[1]}}" />
     </div>
 </div>
+
+<app-page [lastPage]="lastPage" [currentPage]="currentPokemonNum|| 1" (nextClicked)="loadNext()"
+    (prevClicked)="loadPrev()"></app-page>
