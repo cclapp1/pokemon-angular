@@ -12,7 +12,7 @@ export class PokemonService {
   baseURL: string = 'https://pokeapi.co/api/v2'
 
   getAll(page: number = 1, numPokemon: number = 20): Observable<Page> {
-    const offset = 20 * (page - 1)
+    const offset = numPokemon * (page - 1)
     return this.http.get<Pokemon>(`${this.baseURL}/pokemon`, { params: { 'offset': offset, 'limit': String(numPokemon) } }).pipe(
       concatMap((data: any) => {
         return this.getManySprites(data.results).pipe(map(pokemon => {

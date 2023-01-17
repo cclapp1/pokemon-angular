@@ -16,9 +16,17 @@ export class ListComponent {
 
   unsubscribe$: Subject<void> = new Subject<void>()
 
+  countOpts: number[] = [10, 20, 30]
+  selectPokemon: number = 20
+
+  newSelection(event: any): void {
+    this.selectPokemon = event
+    this.changePage(this.pokePage?.currentPage, this.selectPokemon)
+  }
+
   loadNext(): void {
     this.router.navigate([''], { queryParams: { 'page': Number(this.pokePage?.currentPage) + 1 } })
-    if (Math.ceil(this.pokePage!.total / 20) == this.pokePage!.currentPage + 1) {
+    if (Math.ceil(this.pokePage!.total / this.selectPokemon) == this.pokePage!.currentPage + 1) {
       this.lastPage = true
     }
   }
@@ -37,8 +45,9 @@ export class ListComponent {
     this.route.queryParamMap.pipe(takeUntil(this.unsubscribe$)).subscribe(parms => {
       let page = parms.get('page')
       if (page) {
-        this.changePage(Number(page), 20)
+        this.changePage(Number(page), this.selectPokemon)
       } else {
+        this.selectPokemon = 20
         this.changePage()
       }
     })

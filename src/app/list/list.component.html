@@ -1,12 +1,15 @@
 <div class="center">
     <button routerLink="" id="pokeLink">List All Pokemon</button>
+    <select (ngModelChange)="newSelection($event)" [(ngModel)]="selectPokemon">
+        <option *ngFor="let o of countOpts">{{o}}</option>
+    </select>
 </div>
 
 <div class="container" *ngFor="let pokemon of pokePage?.pokemonList; index as i">
     <div class="pokeContent">
         <div><img id="image" src="{{pokemon.img}}" /></div>
         <button routerLink="/details"
-            [queryParams]="{'page':pokePage?.currentPage, 'pokeNum':i+1}">{{pokemon.name.substring(0,1).toUpperCase()
+            [queryParams]="{'page':pokePage?.currentPage, 'pokeNum':i+1, 'numPerPage':selectPokemon}">{{pokemon.name.substring(0,1).toUpperCase()
             +
             pokemon.name.substring(1,pokemon.name.length)}}</button>
     </div>
