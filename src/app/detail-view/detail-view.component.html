@@ -1,5 +1,7 @@
 <div style="text-align: center;">
     <button routerLink="" [queryParams]="{'page':currentPage?.currentPage}" id="pokeLink">Back To List</button>
+    <app-page [lastPage]="lastPage" [currentPage]="getPageOffset() + currentPokemonNum" (nextClicked)="loadNext()"
+        (prevClicked)="loadPrev()"></app-page>
 </div>
 <div class="container" *ngIf="currentPokemon">
     <div>
@@ -21,6 +23,3 @@
         </div>
     </div>
 </div>
-
-<app-page [lastPage]="lastPage" [currentPage]="getPageOffset() + currentPokemonNum" (nextClicked)="loadNext()"
-    (prevClicked)="loadPrev()"></app-page>
