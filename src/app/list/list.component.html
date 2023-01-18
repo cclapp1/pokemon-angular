@@ -5,6 +5,11 @@
 <div class="container" *ngFor="let pokemon of pokePage?.pokemonList; index as i">
     <a routerLink="/details" [queryParams]="{'page':pokePage?.currentPage, 'pokeNum':i+1}"><app-poke-item
             [pokePage]="pokePage" [pokemon]="pokemon" (i)="i"></app-poke-item></a>
+            
 </div>
+
+
+
 <app-page [lastPage]="lastPage" [currentPage]="pokePage?.currentPage || 1" (nextClicked)="loadNext()"
     (prevClicked)="loadPrev()"></app-page>
+
