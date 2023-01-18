@@ -70,7 +70,7 @@ export class DetailViewComponent {
   ngOnInit(): void {
     this.route.queryParamMap.pipe(
       takeUntil(this.unsubscibe$),
-      concatMap((query: any) => this.loadPage(query, query.get('pageCnt'))),
+      concatMap((query: any) => this.loadPage(query, Number(query.get('pageCnt')))),
       concatMap((query: any) => this.loadPokemon(query))
     ).subscribe((query: any) => {
       this.currentPage = query.page
