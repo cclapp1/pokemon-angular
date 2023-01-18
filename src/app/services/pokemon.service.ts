@@ -82,9 +82,12 @@ export class PokemonService {
   getEnv(name: string): Observable<Habitat>{
     return this.http.get<Habitat>(`${this.baseURL}/pokemon-habitat/${name}`).pipe(map((m: any) => {
       console.log("getEnv", m)
-      return new Habitat(m.name, m.id)
-    })
-    )
+      let pokeList = new Habitat();
+      m.pokemon_species.forEach((pokemon_species: any)=>{
+        pokeList.pokemon_species?.push(pokemon_species.name)
+      })
+      return pokeList
+  }))
   }
 
 
