@@ -11,11 +11,6 @@
     border-color: rgb(47, 47, 47);
 }
 
-button:hover {
-    background-color: rgb(245, 168, 176);
-    border-color: rgb(252, 13, 27);
-}
-
 .pokeContent {
     display: flex;
     align-items: center;
@@ -29,8 +24,15 @@ button:hover {
 :root {
     --type1Color: #000000;
     --type2Color: #000000;
+    --type1Dark: #000000;
+    --type2Dark: #000000;
 }
 
 .typeBackground {
     background-image: linear-gradient(180deg, var(--type1Color, grey) 50%, var(--type2Color, white) 50%);
+}
+
+button:hover {
+    background-image: linear-gradient(180deg, var(--type1Dark, grey) 50%, var(--type2Dark, white) 50%);
+    border-color: rgb(252, 13, 27);
 }

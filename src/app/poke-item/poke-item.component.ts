@@ -18,10 +18,17 @@ export class PokeItemComponent {
   type1Color: string | null = null
   type2Color: string | null = null
 
+  type1Dark: string | null = null
+  type2Dark: string | null = null
+
   ngOnInit(): void {
     this.type1Color = this.pokemon.types[0].color
     if (this.pokemon.types[1]?.color) this.type2Color = this.pokemon.types[1].color
     else this.type2Color = this.pokemon.types[0].color
+
+    this.type1Dark = this.pokemon.types[0].darkColor
+    if (this.pokemon.types[1]?.darkColor) this.type2Dark = this.pokemon.types[1].darkColor
+    else this.type2Dark = this.pokemon.types[0].darkColor
   }
 
 }

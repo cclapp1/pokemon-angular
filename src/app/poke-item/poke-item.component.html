@@ -1,7 +1,7 @@
 <div class="pokeContent">
     <div><img id="image" src="{{pokemon.img[0]}}" /></div>
-    <button [style.--type1Color]="type1Color" [style.--type2Color]="type2Color"
-        class=" pokeBtn typeBackground">{{pokemon.name.substring(0,1).toUpperCase()
+    <button [style.--type1Color]="type1Color" [style.--type2Color]="type2Color" [style.--type1Dark]="type1Dark"
+        [style.--type2Dark]="type2Dark" class=" pokeBtn typeBackground">{{pokemon.name.substring(0,1).toUpperCase()
         +
         pokemon.name.substring(1,pokemon.name.length)}}</button>
 </div>
