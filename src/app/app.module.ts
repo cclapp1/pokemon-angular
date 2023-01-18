@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { DetailViewComponent } from './detail-view/detail-view.component';
 import { PageComponent } from './page/page.component';
+import { PokeItemComponent } from './poke-item/poke-item.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { PageComponent } from './page/page.component';
     ListComponent,
     DetailViewComponent,
     PageComponent,
+    PokeItemComponent,
   ],
   imports: [
     BrowserModule,

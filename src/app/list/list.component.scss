@@ -3,43 +3,18 @@
     src: url('../../assets/pokeFont.ttf');
 }
 
-
-button {
-    display: inline-block;
-    font-size: 28px;
-    border-radius: 15px;
-    border-width: 5px;
-    cursor: pointer;
-    transition-duration: 200ms;
-    font-family: 'pokemon';
-    text-align: left;
-    background-color: rgb(228 57 61);
-    border-color: rgb(47, 47, 47);
-}
-
-button:hover {
-    background-color: rgb(245, 168, 176);
-    border-color: rgb(252, 13, 27);
-}
-
 .container {
     width: calc(33% - 20px);
     display: inline-block;
     margin: 10px;
 }
 
-.pokeContent {
-    display: flex;
-    align-items: center;
+a {
+    text-decoration: none;
 }
 
 .center {
     text-align: center;
-}
-
-#image {
-    width: 100px;
-    height: 100px;
 }
 
 @media(max-width: 1000px) {

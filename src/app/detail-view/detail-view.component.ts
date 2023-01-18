@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../services/pokemon.service';
 import { Page, Pokemon } from '../models/pokeModel';
@@ -16,6 +16,9 @@ export class DetailViewComponent {
   currentPokemonNum!: number
 
   unsubscibe$: Subject<void> = new Subject<void>()
+
+  @HostBinding('style.--type1') type1: string = ''
+  @HostBinding('style.--type2') type2: string = ''
 
   //Caluclates the offset of the pokemon for lookup purposes
   getPageOffset(): number {
@@ -61,7 +64,7 @@ export class DetailViewComponent {
   //Loads the pokemon from the query string
   loadPokemon(query: any): Observable<any> {
     let pokeNum = query.get('pokeNum') || 1
-    return this.pokeSrv.getByName(query.page.pokemonList[pokeNum - 1].name).pipe(map(pokemon => {
+    return this.pokeSrv.getDetails(query.page.pokemonList[pokeNum - 1].name).pipe(map(pokemon => {
       query.pokemon = pokemon
       return query
     }))
@@ -77,13 +80,14 @@ export class DetailViewComponent {
       this.currentPokemon = query.pokemon
       this.currentPokemonNum = Number(query.get('pokeNum'))
 
-      //Formats the move so that the - is removed and words are capitalised
-      this.currentPokemon?.moves.forEach(move => {
-        move.name = move.name.split('-').map(str => {
-          return str.substring(0, 1).toUpperCase() + str.substring(1, str.length)
-        }).join('-').replaceAll('-', ' ')
-      })
+      //Binds css to the colors for the type
+      this.type1 = this.currentPokemon?.types[0].darkColor || 'red'
+      this.type2 = this.currentPokemon?.types[1]?.darkColor || 'red'
     })
+  }
+
+  formatName(input: string): string {
+    return input.substring(0, 1).toUpperCase() + input.substring(1, input.length)
   }
 
   ngOnDestroy(): void {
