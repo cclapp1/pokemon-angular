@@ -121,3 +121,11 @@ export class Page {
         this.pokemonList = p
     }
 }
+
+export class pokeTypeList{
+    pokemonOfType?: string[];
+
+    constructor(pokemonOfType: string[] = []){
+        this.pokemonOfType = pokemonOfType;
+    }
+}
