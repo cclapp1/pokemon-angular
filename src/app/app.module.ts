@@ -8,13 +8,15 @@ import { ListComponent } from './list/list.component';
 import { DetailViewComponent } from './detail-view/detail-view.component';
 import { PageComponent } from './page/page.component';
 import { FormsModule } from '@angular/forms';
+import { PokeItemComponent } from './poke-item/poke-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     DetailViewComponent,
-    PageComponent
+    PageComponent,
+    PokeItemComponent,
   ],
   imports: [
     BrowserModule,

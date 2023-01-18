@@ -9,3 +9,16 @@
     margin-bottom: 20px;
     padding-bottom: 20px;
 }
+
+#types {
+    display: flex;
+    justify-content: center;
+}
+
+.type1 {
+    color: var(--type1);
+}
+
+.type2 {
+    color: var(--type2)
+}
