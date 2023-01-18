@@ -135,5 +135,13 @@ export class Habitat {
         this.name = n;
         this.id = i
     }
+}
 
+
+export class pokeTypeList{
+    pokemonOfType?: string[];
+
+    constructor(pokemonOfType: string[] = []){
+        this.pokemonOfType = pokemonOfType;
+    }
 }

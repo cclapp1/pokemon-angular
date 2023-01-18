@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { concat, concatMap, Observable, of, take, tap, zip } from 'rxjs'
 import { map } from 'rxjs'
 
-import { Habitat, Move, Page, pokeModel, Pokemon, PokeType } from '../models/pokeModel'
+import {  Habitat, Move, Page, pokeModel, Pokemon, PokeType, pokeTypeList } from '../models/pokeModel'
 
 @Injectable({
   providedIn: 'root'
@@ -88,5 +88,18 @@ export class PokemonService {
   }
 
 
+  filterByType(type: string){
+     return this.http.get(`${this.baseURL}/type/${type}`).pipe(map((item:any) =>{
+        let pokeList = new pokeTypeList();
+        item.pokemon.forEach((pokemon:any) => {
+          pokeList.pokemonOfType?.push(pokemon.pokemon.name);
+          console.log("pokemon name", pokemon.pokemon.name);
+        })
+        console.log("This is my pokelist", pokeList);
+        return pokeList;
+      }))
+    
+    
+  }
   constructor(private http: HttpClient) { }
 }

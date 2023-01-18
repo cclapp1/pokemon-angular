@@ -56,6 +56,7 @@ export class ListComponent {
         this.changePage()
       }
     })
+    
   }
 
   ngOnDestroy(): void {
