@@ -1,5 +1,12 @@
 <div class="center">
     <button routerLink="" id="pokeLink">List All Pokemon</button>
+
+    <label for="search-box">Pokemon Search</label>
+    <input #searchBox (input)="search(searchBox.value)">
+    Species
+    <input type="checkbox" [(ngModel)]="speciesChecked">
+    Habitat
+    <input type="checkbox" [(ngModel)]="habitatChecked">
 </div>
 
 <div class="container" *ngFor="let pokemon of pokePage?.pokemonList; index as i">
