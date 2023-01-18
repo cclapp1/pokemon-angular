@@ -21,9 +21,7 @@ export class ListComponent {
     console.log(search)
   }
 
-  search(term: string): void {
-    this.getHabitat(term);
-  }
+  
 
   loadNext(): void {
     this.router.navigate([''], { queryParams: { 'page': Number(this.pokePage?.currentPage) + 1 } })
