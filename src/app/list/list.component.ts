@@ -79,6 +79,7 @@ export class ListComponent {
         })).subscribe(finalList => {
           this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
         })
+        //
       }
       if (this.habitatChecked && !this.speciesChecked) {
         console.log('called habitat');
