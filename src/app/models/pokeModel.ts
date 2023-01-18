@@ -81,9 +81,9 @@ export class Move {
     accuracy: number
     power: number
     pp: number
-    desc: string
+    desc?: string
 
-    constructor(n: string, a: number, po: number, pp: number, d: string) {
+    constructor(n: string, a: number, po: number, pp: number, d?: string) {
         //Formats the move so that the - is removed and words are capitalised
         this.formattedName = n.split('-').map(str => {
             return str.substring(0, 1).toUpperCase() + str.substring(1, str.length)
