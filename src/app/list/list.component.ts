@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Page } from '../models/pokeModel';
+import { Page, Habitat } from '../models/pokeModel';
 import { PokemonService } from '../services/pokemon.service';
 
 @Component({
@@ -13,8 +13,17 @@ export class ListComponent {
 
   pokePage: Page | undefined
   lastPage: boolean = false
-
+  PokeHabitat: Habitat | undefined
   unsubscribe$: Subject<void> = new Subject<void>()
+
+  getHabitat(name: string): void {
+    let search = this.pokeSrv.getEnv(name).subscribe(PokeHabitat => {this.PokeHabitat = PokeHabitat})
+    console.log(search)
+  }
+
+  search(term: string): void {
+    this.getHabitat(term);
+  }
 
   loadNext(): void {
     this.router.navigate([''], { queryParams: { 'page': Number(this.pokePage?.currentPage) + 1 } })
@@ -34,6 +43,11 @@ export class ListComponent {
   }
 
   ngOnInit(): void {
+
+    this.getHabitat("cave");
+   
+
+
     this.route.queryParamMap.pipe(takeUntil(this.unsubscribe$)).subscribe(parms => {
       let page = parms.get('page')
       if (page) {

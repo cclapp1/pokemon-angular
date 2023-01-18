@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core'
 import { concat, concatMap, Observable, of, take, tap, zip } from 'rxjs'
 import { map } from 'rxjs'
 
-import { Move, Page, pokeModel, Pokemon, PokeType } from '../models/pokeModel'
+import { Habitat, Move, Page, pokeModel, Pokemon, PokeType } from '../models/pokeModel'
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class PokemonService {
   baseURL: string = 'https://pokeapi.co/api/v2'
 
@@ -74,6 +75,16 @@ export class PokemonService {
       )
     }
     return zip(returnArr)
+  }
+
+
+
+  getEnv(name: string): Observable<Habitat>{
+    return this.http.get<Habitat>(`${this.baseURL}/pokemon-habitat/${name}`).pipe(map((m: any) => {
+      console.log("getEnv", m)
+      return new Habitat(m.name, m.id)
+    })
+    )
   }
 
 
