@@ -127,13 +127,11 @@ export class Page {
 
 export class Habitat {
 
-    name: string
-    id: number
+   
+    pokemon_species: string[];
 
-
-    constructor(n: string, i: number){
-        this.name = n;
-        this.id = i
+    constructor( pokemon_species: string[] = []){  
+        this.pokemon_species = pokemon_species;
     }
 }
 

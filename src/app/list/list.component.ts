@@ -1,6 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { concatMap, debounceTime, distinctUntilChanged, map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { Page, pokeModel, PokeType, Habitat } from '../models/pokeModel';
 import { PokemonService } from '../services/pokemon.service';
 
@@ -25,6 +25,7 @@ export class ListComponent {
   private searchTerms = new Subject<string>();
   speciesChecked: boolean = false
   habitatChecked: boolean = false
+
 
   loadNext(): void {
     this.router.navigate([''], { queryParams: { 'page': Number(this.pokePage?.currentPage) + 1 } })
@@ -69,12 +70,27 @@ export class ListComponent {
     this.searchResults$.subscribe((item: string) => {
       if (this.speciesChecked && !this.habitatChecked) {
         console.log('called specied');
-        //this.pokePage = new Page(1, 100, 100, item)
+        this.pokeSrv.filterByType(item).pipe(concatMap(list => {
+          return this.pokeSrv.getManyByNameString(list.pokemonOfType!).pipe(map((pokelist: any) => {
+            return pokelist.map((item: any) => {
+              return new pokeModel(item.name, item.image[0], item.types)
+            })
+          }))
+        })).subscribe(finalList => {
+          this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
+        })
       }
       if (this.habitatChecked && !this.speciesChecked) {
         console.log('called habitat');
-
-        // this.pokePage = new Page(1, 100, 100, item)
+        this.pokeSrv.getEnv(item).pipe(concatMap(list => {
+          return this.pokeSrv.getManyByNameString(list.pokemon_species).pipe(map((pokelist: any) => {
+            return pokelist.map((item: any) => {
+              return new pokeModel(item.name, item.image[0], item.types)
+            })
+          }))
+        })).subscribe(finalList => {
+          this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
+        })
       }
     })
   }
