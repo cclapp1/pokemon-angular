@@ -8,6 +8,8 @@ import { ListComponent } from './list/list.component';
 import { DetailViewComponent } from './detail-view/detail-view.component';
 import { PageComponent } from './page/page.component';
 import { PokeItemComponent } from './poke-item/poke-item.component';
+import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { PokeItemComponent } from './poke-item/poke-item.component';
     DetailViewComponent,
     PageComponent,
     PokeItemComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

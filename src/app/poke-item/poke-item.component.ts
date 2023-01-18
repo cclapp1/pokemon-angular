@@ -32,6 +32,7 @@ export class PokeItemComponent {
     if (this.pokemon.types[1]?.darkColor) this.type2Dark = this.pokemon.types[1].darkColor
     else this.type2Dark = this.pokemon.types[0].darkColor
 
+
     this.mainImage = this.pokemon.img[0]
   }
 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { concat, concatMap, Observable, of, take, tap, zip } from 'rxjs'
 import { map } from 'rxjs'
 
-import {  Habitat, Move, Page, pokeModel, Pokemon, PokeType, pokeTypeList } from '../models/pokeModel'
+import { Habitat, Move, Page, pokeModel, Pokemon, PokeType, pokeTypeList } from '../models/pokeModel'
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +64,15 @@ export class PokemonService {
     }))
   }
 
+  getManyByNameString(pokeList: string[]): Observable<any[]> {
+    return zip(...pokeList.map(p => {
+      return this.getByName(p).pipe(map(pokeObj => {
+        return pokeObj
+      }))
+    }))
+  }
+
+
 
   getMoves(moves: any[]): Observable<Move[]> {
     let returnArr: Observable<Move>[] = []
@@ -79,30 +88,30 @@ export class PokemonService {
 
 
 
-  getEnv(name: string): Observable<Habitat>{
+  getEnv(name: string): Observable<Habitat> {
     return this.http.get<Habitat>(`${this.baseURL}/pokemon-habitat/${name}`).pipe(map((m: any) => {
       console.log("getEnv", m)
       let pokeList = new Habitat();
-      m.pokemon_species.forEach((pokemon_species: any)=>{
+      m.pokemon_species.forEach((pokemon_species: any) => {
         pokeList.pokemon_species?.push(pokemon_species.name)
       })
       return pokeList
-  }))
+    }))
   }
 
 
-  filterByType(type: string){
-     return this.http.get(`${this.baseURL}/type/${type}`).pipe(map((item:any) =>{
-        let pokeList = new pokeTypeList();
-        item.pokemon.forEach((pokemon:any) => {
-          pokeList.pokemonOfType?.push(pokemon.pokemon.name);
-          console.log("pokemon name", pokemon.pokemon.name);
-        })
-        console.log("This is my pokelist", pokeList);
-        return pokeList;
-      }))
-    
-    
+  filterByType(type: string) {
+    return this.http.get(`${this.baseURL}/type/${type}`).pipe(map((item: any) => {
+      let pokeList = new pokeTypeList();
+      item.pokemon.forEach((pokemon: any) => {
+        pokeList.pokemonOfType?.push(pokemon.pokemon.name);
+        console.log("pokemon name", pokemon.pokemon.name);
+      })
+      console.log("This is my pokelist", pokeList);
+      return pokeList;
+    }))
+
+
   }
   constructor(private http: HttpClient) { }
 }
