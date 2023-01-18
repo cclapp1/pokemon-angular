@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, TitleStrategy } from '@angular/router';
 import { PokemonService } from '../services/pokemon.service';
 import { Page, Pokemon } from '../models/pokeModel';
 import { concatMap, map, Observable, Subject, take, takeUntil } from 'rxjs';
@@ -17,6 +17,8 @@ export class DetailViewComponent {
 
   unsubscibe$: Subject<void> = new Subject<void>()
 
+  pageCnt: number = 20
+
   @HostBinding('style.--type1') type1: string = ''
   @HostBinding('style.--type2') type2: string = ''
 
@@ -32,7 +34,7 @@ export class DetailViewComponent {
     if (this.lastPage && this.currentPokemonNum != this.currentPage?.total) this.lastPage = false
 
     //Checks to see if the page needs to be changed (1st case), advances the pokemon (else)
-    if (this.currentPokemonNum - this.getPageOffset() == 1) this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage - 1), 'pokeNum': 20 } })
+    if (this.currentPokemonNum - this.getPageOffset() == 1) this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage - 1), 'pokeNum': this.pageCnt } })
     else this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage), 'pokeNum': Number(this.currentPokemonNum) - 1 } })
 
   }
@@ -49,13 +51,8 @@ export class DetailViewComponent {
   }
 
   //Loads the page based on what is inside the currentPage locally or the query string
-  loadPage(query: any): Observable<any> {
-    let page = query.get('page')
-    let pageFetch: number = this.currentPage?.currentPage || 1
-
-    if (Number(page) != this.currentPage?.currentPage) pageFetch = Number(page)
-
-    return this.pokeSrv.getAll(pageFetch, 20).pipe(map(p => {
+  loadPage(query: any, pageCnt: number): Observable<any> {
+    return this.pokeSrv.getAll(this.currentPage?.currentPage, pageCnt || this.pageCnt).pipe(map(p => {
       query.page = p
       return query
     }))
@@ -73,12 +70,18 @@ export class DetailViewComponent {
   ngOnInit(): void {
     this.route.queryParamMap.pipe(
       takeUntil(this.unsubscibe$),
-      concatMap((query: any) => this.loadPage(query)),
+      concatMap((query: any) => this.loadPage(query, query.get('pageCnt'))),
       concatMap((query: any) => this.loadPokemon(query))
     ).subscribe((query: any) => {
       this.currentPage = query.page
       this.currentPokemon = query.pokemon
       this.currentPokemonNum = Number(query.get('pokeNum'))
+
+      //Loads the query for page
+      let pageCnt: string = query.get('pageCnt')
+      if (pageCnt) {
+        this.pageCnt = Number(pageCnt)
+      }
 
       //Binds css to the colors for the type
       this.type1 = this.currentPokemon?.types[0].darkColor || 'red'

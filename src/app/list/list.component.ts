@@ -47,7 +47,6 @@ export class ListComponent {
       if (page) {
         this.changePage(Number(page), this.selectPokemon)
       } else {
-        this.selectPokemon = 20
         this.changePage()
       }
     })
