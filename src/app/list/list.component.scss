@@ -29,3 +29,15 @@ a {
         width: calc(100% - 20px);
     }
 }
+
+#searchBar {
+    box-sizing: border-box;
+}
+
+#searchBtn {
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: "pokemon";
+    background-color: rgb(228, 57, 61);
+    border-color: green;
+}

@@ -1,16 +1,23 @@
 <div class="center">
     <button routerLink="" id="pokeLink">List All Pokemon</button>
 
-    <label for="search-box">Pokemon Search</label>
-    <input #searchBox (input)="search(searchBox.value)">
-    Type
-    <input type="checkbox" [(ngModel)]="speciesChecked">
-    Habitat
-    <input type="checkbox" [(ngModel)]="habitatChecked">
+    <div id="searchBar">
+        <input #searchBox [(ngModel)]="query">
+        <br>
+        <label for="search-box">Type:</label>
+        <input (change)="typeClick()" type="checkbox" [(ngModel)]="speciesChecked">
+        <br>
+        <label for="search-box">Habitat:</label>
+        <input (change)="habitatClick()" type="checkbox" [(ngModel)]="habitatChecked">
+        <br>
+        <button id="searchBtn" (click)="search()">Search</button>
+    </div>
+
 </div>
 
 <div class="container" *ngFor="let pokemon of pokePage?.pokemonList; index as i">
-    <a routerLink="/details" [queryParams]="{'page':pokePage?.currentPage, 'pokeNum':i+1}"><app-poke-item
+    <a routerLink="/details"
+        [queryParams]="{'page':pokePage?.currentPage, 'pokeNum':i+1, 'name':pokemon.name, searchResult: isSearch}"><app-poke-item
             [pokePage]="pokePage" [pokemon]="pokemon" (i)="i"></app-poke-item></a>
 
 </div>

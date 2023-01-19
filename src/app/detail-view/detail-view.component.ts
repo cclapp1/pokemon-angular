@@ -71,19 +71,27 @@ export class DetailViewComponent {
   }
 
   ngOnInit(): void {
-    this.route.queryParamMap.pipe(
-      takeUntil(this.unsubscibe$),
-      concatMap((query: any) => this.loadPage(query)),
-      concatMap((query: any) => this.loadPokemon(query))
-    ).subscribe((query: any) => {
-      this.currentPage = query.page
-      this.currentPokemon = query.pokemon
-      this.currentPokemonNum = Number(query.get('pokeNum'))
+    //Checks to see if this is a result from searching for pokemon
+    if (this.route.snapshot.queryParamMap.get('searchResult') == 'true') {
+      this.lastPage = true
+      this.pokeSrv.getDetails(this.route.snapshot.queryParamMap.get('name')!).subscribe(pokemon => {
+        this.currentPokemon = pokemon
+      })
+    } else {
+      this.route.queryParamMap.pipe(
+        takeUntil(this.unsubscibe$),
+        concatMap((query: any) => this.loadPage(query)),
+        concatMap((query: any) => this.loadPokemon(query))
+      ).subscribe((query: any) => {
+        this.currentPage = query.page
+        this.currentPokemon = query.pokemon
+        this.currentPokemonNum = Number(query.get('pokeNum'))
 
-      //Binds css to the colors for the type
-      this.type1 = this.currentPokemon?.types[0].darkColor || 'red'
-      this.type2 = this.currentPokemon?.types[1]?.darkColor || 'red'
-    })
+        //Binds css to the colors for the type
+        this.type1 = this.currentPokemon?.types[0].darkColor || 'red'
+        this.type2 = this.currentPokemon?.types[1]?.darkColor || 'red'
+      })
+    }
   }
 
   formatName(input: string): string {

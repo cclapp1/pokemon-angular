@@ -16,6 +16,9 @@ export class PokemonService {
     const offset = 20 * (page - 1)
     return this.http.get<Pokemon>(`${this.baseURL}/pokemon`, { params: { 'offset': offset, 'limit': String(numPokemon) } }).pipe(
       concatMap((pokelist: any) => {
+        pokelist.results = pokelist.results.map((item: any) => {
+          return item.name
+        })
         return this.getManyByName(pokelist.results).pipe(map(pokemonObj => {
           return pokemonObj
         }))
@@ -57,20 +60,11 @@ export class PokemonService {
 
   getManyByName(pokeList: any[]): Observable<any[]> {
     return zip(...pokeList.map(p => {
-      return this.getByName(p.name).pipe(map(pokeObj => {
-        return pokeObj
-      }))
-    }))
-  }
-
-  getManyByNameString(pokeList: string[]): Observable<any[]> {
-    return zip(...pokeList.map(p => {
       return this.getByName(p).pipe(map(pokeObj => {
         return pokeObj
       }))
     }))
   }
-
 
 
   getMoves(moves: any[]): Observable<Move[]> {

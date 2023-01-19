@@ -15,10 +15,10 @@ export class ListComponent {
   lastPage: boolean = false
   unsubscribe$: Subject<void> = new Subject<void>()
 
-  searchResults$!: Observable<string>
-  private searchTerms = new Subject<string>();
   speciesChecked: boolean = false
   habitatChecked: boolean = false
+  isSearch: boolean = false
+  query: string = ''
 
 
   loadNext(): void {
@@ -47,31 +47,32 @@ export class ListComponent {
         this.changePage()
       }
     })
+  }
 
-    this.searchResults$ = this.searchTerms.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      map((term: string) => {
-        return term
+  //Method called when the submit button for the search bar is clicked
+  search(): void {
+    //Search case for the species
+    if (!this.habitatChecked && this.speciesChecked) {
+      this.isSearch = true
+      this.pokeSrv.filterByType(this.query).pipe(concatMap(list => {
+        return this.pokeSrv.getManyByName(list.pokemonOfType!)
+      })).subscribe(finalList => {
+        this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
+        this.lastPage = true
       })
-    )
+    }
 
-    this.searchResults$.subscribe((item: string) => {
-      if (this.speciesChecked && !this.habitatChecked) {
-        this.pokeSrv.filterByType(item).pipe(concatMap(list => {
-          return this.pokeSrv.getManyByNameString(list.pokemonOfType!)
-        })).subscribe(finalList => {
-          this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
-        })
-      }
-      if (this.habitatChecked && !this.speciesChecked) {
-        this.pokeSrv.getEnv(item).pipe(concatMap(list => {
-          return this.pokeSrv.getManyByNameString(list.pokemon_species)
-        })).subscribe(finalList => {
-          this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
-        })
-      }
-    })
+    //Search case for the habitat
+    if (!this.speciesChecked && this.habitatChecked) {
+      this.isSearch = true
+      this.pokeSrv.getEnv(this.query).pipe(concatMap(list => {
+        return this.pokeSrv.getManyByName(list.pokemon_species)
+      })).subscribe(finalList => {
+        this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
+        this.lastPage = true
+      })
+    }
+
   }
 
   ngOnDestroy(): void {
@@ -79,8 +80,17 @@ export class ListComponent {
     this.unsubscribe$.complete()
   }
 
-  search(term: string): void {
-    this.searchTerms.next(term)
+  //Methods below called when the search buttons are clicked so that only one button is visually selected at a time
+  typeClick(): void {
+    if (this.habitatChecked) {
+      this.habitatChecked = false
+    }
+  }
+
+  habitatClick(): void {
+    if (this.speciesChecked) {
+      this.speciesChecked = false
+    }
   }
 
 
