@@ -18,7 +18,7 @@
 <div class="container" *ngFor="let pokemon of pokePage?.pokemonList; index as i">
     <a routerLink="/details"
         [queryParams]="{'page':pokePage?.currentPage, 'pokeNum':i+1, 'name':pokemon.name, searchResult: isSearch}"><app-poke-item
-            [pokePage]="pokePage" [pokemon]="pokemon" (i)="i"></app-poke-item></a>
+            [pokemon]="pokemon" (i)="i"></app-poke-item></a>
 
 </div>
 

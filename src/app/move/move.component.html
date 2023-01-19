@@ -1,0 +1,17 @@
+<div class="container">
+    <h3>{{move.formattedName}}</h3>
+    <h2 id="type">{{move.type.formattedName}}</h2>
+
+    <span *ngIf="move.accuracy">Accuracy: <i>{{move.accuracy}}</i></span>
+    <span *ngIf="move.accuracy"> | </span>
+    <span *ngIf="move.power">Power: <i>{{move.power}}</i></span>
+    <span *ngIf="move.power"> | </span>
+    <span *ngIf="move.pp">PP: <i>{{move.pp}}</i></span>
+    <br>
+
+    <div *ngIf="move.desc">Description: "{{move.desc}}"</div>
+    <br>
+
+    <app-page [fontSize]="'10px'" [btnColor]="'#ff6600'" [btnBorder]="'white'" [lastPage]="lastPage"
+        [currentPage]="moveIndex + 1 || 1" (nextClicked)="loadNext()" (prevClicked)="loadPrev()"></app-page>
+</div>

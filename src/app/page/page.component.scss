@@ -1,15 +1,15 @@
 .container {
     text-align: center;
+    font-size: var(--fontSize);
 }
 
-.container button {
-    font-size: 20px;
+.navBtn {
+    font-size: var(--fontSize);
     font-family: 'pokemon';
     margin-bottom: 10px;
-    background-color: rgb(44, 104, 164);
+    background-color: var(--btnColor);
     border-radius: 15px;
     border-width: 5px;
-    border-color: green;
-    ;
+    border-color: var(--btnBorderColor);
     cursor: pointer;
 }

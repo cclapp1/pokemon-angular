@@ -1,6 +1,5 @@
-import { TypeofExpr } from '@angular/compiler';
 import { Component, Input } from '@angular/core';
-import { Page, pokeModel, Pokemon } from '../models/pokeModel';
+import { Pokemon } from '../models/pokeModel';
 
 @Component({
   selector: 'app-poke-item',
@@ -10,8 +9,6 @@ import { Page, pokeModel, Pokemon } from '../models/pokeModel';
 export class PokeItemComponent {
   @Input()
   pokemon!: Pokemon
-  @Input()
-  pokePage: Page | undefined
   @Input()
   i!: number
 

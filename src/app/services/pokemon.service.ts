@@ -72,7 +72,7 @@ export class PokemonService {
     for (let i = 0; i < moves.length && i < 5; i++) {
       returnArr.push(
         this.http.get(`${this.baseURL}/move/${moves[i].move.name}`).pipe(map((m: any) => {
-          return new Move(m.name, m.accuracy, m.power, m.pp, m.flavor_text_entries[0]?.flavor_text)
+          return new Move(m.name, m.accuracy, m.power, m.pp, m.type.name, m.flavor_text_entries[0]?.flavor_text)
         }))
       )
     }

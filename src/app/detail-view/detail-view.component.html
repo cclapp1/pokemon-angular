@@ -22,11 +22,6 @@
         <img src="{{currentPokemon.image[1]}}" />
 
         <h2>Moves:</h2>
-        <div *ngFor="let move of currentPokemon.moves">
-            <h3>{{move.formattedName}}</h3>
-            Accuracy: <i>{{move.accuracy}}</i> | Power: <i>{{move.power}}</i> | PP: <i>{{move.pp}}</i>
-            <br>
-            <div *ngIf="move.desc">Description: "{{move.desc}}"</div>
-        </div>
+        <app-move [moves]="currentPokemon.moves!"></app-move>
     </div>
 </div>

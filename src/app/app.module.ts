@@ -10,6 +10,7 @@ import { PageComponent } from './page/page.component';
 import { PokeItemComponent } from './poke-item/poke-item.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
+import { MoveComponent } from './move/move.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     PageComponent,
     PokeItemComponent,
     SearchComponent,
+    MoveComponent,
   ],
   imports: [
     BrowserModule,

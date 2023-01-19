@@ -64,6 +64,7 @@ export class PokeType {
     }
 
     name: string
+    formattedName: string
     color: string
     darkColor: string
 
@@ -72,6 +73,7 @@ export class PokeType {
         this.name = n
         this.color = this.pokeColors[key]
         this.darkColor = this.pokeColorsDark[key]
+        this.formattedName = n.substring(0, 1).toUpperCase() + n.substring(1, n.length)
     }
 }
 
@@ -81,9 +83,10 @@ export class Move {
     accuracy: number
     power: number
     pp: number
+    type: PokeType
     desc?: string
 
-    constructor(n: string, a: number, po: number, pp: number, d?: string) {
+    constructor(n: string, a: number, po: number, pp: number, type: string, d?: string) {
         //Formats the move so that the - is removed and words are capitalised
         this.formattedName = n.split('-').map(str => {
             return str.substring(0, 1).toUpperCase() + str.substring(1, str.length)
@@ -93,6 +96,7 @@ export class Move {
         this.power = po
         this.pp = pp
         this.desc = d
+        this.type = new PokeType(type)
     }
 }
 
