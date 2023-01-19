@@ -112,9 +112,21 @@ export class Page {
     currentPage: number
     total: number
     limit: number
-    pokemonList: pokeModel[]
+    pokemonList: Pokemon[]
 
-    constructor(c: number, t: number, l: number, p: pokeModel[]) {
+    nextPage(): void {
+
+    }
+
+    prevPage(): void {
+
+    }
+
+    getPokemon(index: number, page: number) {
+
+    }
+
+    constructor(c: number, t: number, l: number, p: Pokemon[]) {
         this.currentPage = c
         this.total = t
         this.limit = l
@@ -126,20 +138,18 @@ export class Page {
 
 
 export class Habitat {
-
-   
     pokemon_species: string[];
 
-    constructor( pokemon_species: string[] = []){  
+    constructor(pokemon_species: string[] = []) {
         this.pokemon_species = pokemon_species;
     }
 }
 
 
-export class pokeTypeList{
+export class pokeTypeList {
     pokemonOfType?: string[];
 
-    constructor(pokemonOfType: string[] = []){
+    constructor(pokemonOfType: string[] = []) {
         this.pokemonOfType = pokemonOfType;
     }
 }

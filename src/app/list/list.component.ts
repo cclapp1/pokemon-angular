@@ -13,13 +13,7 @@ export class ListComponent {
 
   pokePage: Page | undefined
   lastPage: boolean = false
-  PokeHabitat: Habitat | undefined
   unsubscribe$: Subject<void> = new Subject<void>()
-
-  getHabitat(name: string): void {
-    let search = this.pokeSrv.getEnv(name).subscribe(PokeHabitat => { this.PokeHabitat = PokeHabitat })
-    console.log(search)
-  }
 
   searchResults$!: Observable<string>
   private searchTerms = new Subject<string>();
@@ -45,11 +39,6 @@ export class ListComponent {
   }
 
   ngOnInit(): void {
-
-    this.getHabitat("cave");
-
-
-
     this.route.queryParamMap.pipe(takeUntil(this.unsubscribe$)).subscribe(parms => {
       let page = parms.get('page')
       if (page) {
@@ -69,26 +58,15 @@ export class ListComponent {
 
     this.searchResults$.subscribe((item: string) => {
       if (this.speciesChecked && !this.habitatChecked) {
-        console.log('called specied');
         this.pokeSrv.filterByType(item).pipe(concatMap(list => {
-          return this.pokeSrv.getManyByNameString(list.pokemonOfType!).pipe(map((pokelist: any) => {
-            return pokelist.map((item: any) => {
-              return new pokeModel(item.name, item.image[0], item.types)
-            })
-          }))
+          return this.pokeSrv.getManyByNameString(list.pokemonOfType!)
         })).subscribe(finalList => {
           this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
         })
-        //
       }
       if (this.habitatChecked && !this.speciesChecked) {
-        console.log('called habitat');
         this.pokeSrv.getEnv(item).pipe(concatMap(list => {
-          return this.pokeSrv.getManyByNameString(list.pokemon_species).pipe(map((pokelist: any) => {
-            return pokelist.map((item: any) => {
-              return new pokeModel(item.name, item.image[0], item.types)
-            })
-          }))
+          return this.pokeSrv.getManyByNameString(list.pokemon_species)
         })).subscribe(finalList => {
           this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
         })

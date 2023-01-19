@@ -1,6 +1,6 @@
 import { TypeofExpr } from '@angular/compiler';
 import { Component, Input } from '@angular/core';
-import { Page, pokeModel } from '../models/pokeModel';
+import { Page, pokeModel, Pokemon } from '../models/pokeModel';
 
 @Component({
   selector: 'app-poke-item',
@@ -9,7 +9,7 @@ import { Page, pokeModel } from '../models/pokeModel';
 })
 export class PokeItemComponent {
   @Input()
-  pokemon!: pokeModel
+  pokemon!: Pokemon
   @Input()
   pokePage: Page | undefined
   @Input()
@@ -33,15 +33,15 @@ export class PokeItemComponent {
     else this.type2Dark = this.pokemon.types[0].darkColor
 
 
-    this.mainImage = this.pokemon.img[0]
+    this.mainImage = this.pokemon.image[0]
   }
 
   imgHover(): void {
-    this.mainImage = this.pokemon.img[1]
+    this.mainImage = this.pokemon.image[1]
   }
 
   imgUnhover(): void {
-    this.mainImage = this.pokemon.img[0]
+    this.mainImage = this.pokemon.image[0]
   }
 
 }

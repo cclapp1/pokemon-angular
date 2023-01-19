@@ -21,10 +21,9 @@ export class PokemonService {
         }))
       }),
       map((data: any) => {
-        let pokeList: pokeModel[] = []
+        let pokeList: Pokemon[] = []
         data.forEach((p: any) => {
-          let pokemon = new pokeModel(p.name, p.image, p.types)
-          pokeList.push(pokemon)
+          pokeList.push(p)
         })
         return new Page(page, data.count, numPokemon, pokeList)
       }))
@@ -90,7 +89,7 @@ export class PokemonService {
 
   getEnv(name: string): Observable<Habitat> {
     return this.http.get<Habitat>(`${this.baseURL}/pokemon-habitat/${name}`).pipe(map((m: any) => {
-      console.log("getEnv", m)
+      //console.log("getEnv", m)
       let pokeList = new Habitat();
       m.pokemon_species.forEach((pokemon_species: any) => {
         pokeList.pokemon_species?.push(pokemon_species.name)
@@ -105,9 +104,9 @@ export class PokemonService {
       let pokeList = new pokeTypeList();
       item.pokemon.forEach((pokemon: any) => {
         pokeList.pokemonOfType?.push(pokemon.pokemon.name);
-        console.log("pokemon name", pokemon.pokemon.name);
+        //console.log("pokemon name", pokemon.pokemon.name);
       })
-      console.log("This is my pokelist", pokeList);
+      //console.log("This is my pokelist", pokeList);
       return pokeList;
     }))
 
