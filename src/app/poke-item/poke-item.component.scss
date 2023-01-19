@@ -21,6 +21,11 @@
     height: 100px;
 }
 
+img[src=""] {
+    content: url("https://i.pinimg.com/originals/81/ce/66/81ce669b7d745ce8537c9e2599d40948.png");
+}
+
+
 :root {
     --type1Color: #000000;
     --type2Color: #000000;

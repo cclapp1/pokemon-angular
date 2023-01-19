@@ -14,7 +14,6 @@ export class MoveComponent {
   move!: Move
   //Index used to help with the buttons
   moveIndex: number = 0
-  lastPage: boolean = false
 
   @HostBinding('style.--typeColor') typeColor!: string
 
@@ -23,7 +22,7 @@ export class MoveComponent {
     this.moveIndex++
     //Checks to see if this is the last move
     if (this.moveIndex + 1 == this.moves.length) {
-      this.lastPage = true
+      //this.lastPage = true
     }
     this.move = this.moves[this.moveIndex]
     this.typeColor = this.moves[this.moveIndex].type.darkColor
@@ -32,7 +31,7 @@ export class MoveComponent {
   //Called on prev button press
   loadPrev(): void {
     this.moveIndex--
-    this.lastPage = false
+    //this.lastPage = false
     this.move = this.moves[this.moveIndex]
     this.typeColor = this.moves[this.moveIndex].type.darkColor
   }

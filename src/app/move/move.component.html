@@ -12,6 +12,6 @@
     <div *ngIf="move.desc">Description: "{{move.desc}}"</div>
     <br>
 
-    <app-page [fontSize]="'10px'" [btnColor]="'#ff6600'" [btnBorder]="'white'" [lastPage]="lastPage"
+    <app-page [fontSize]="'10px'" [btnColor]="'#ff6600'" [btnBorder]="'white'" [lastPage]="moves.length"
         [currentPage]="moveIndex + 1 || 1" (nextClicked)="loadNext()" (prevClicked)="loadPrev()"></app-page>
 </div>

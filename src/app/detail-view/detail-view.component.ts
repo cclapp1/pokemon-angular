@@ -12,7 +12,7 @@ import { concatMap, map, Observable, Subject, take, takeUntil } from 'rxjs';
 export class DetailViewComponent {
   currentPokemon: Pokemon | undefined
   currentPage: Page | undefined
-  lastPage: boolean = false
+  totalPages!: number
   currentPokemonNum!: number
 
   unsubscibe$: Subject<void> = new Subject<void>()
@@ -28,9 +28,6 @@ export class DetailViewComponent {
   }
 
   loadPrev(): void {
-    //Check to see if this pokemon details is the last one
-    if (this.lastPage && this.currentPokemonNum != this.currentPage?.total) this.lastPage = false
-
     //Checks to see if the page needs to be changed (1st case), advances the pokemon (else)
     if (this.currentPokemonNum - this.getPageOffset() == 1) this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage - 1), 'pokeNum': 20 } })
     else this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage), 'pokeNum': Number(this.currentPokemonNum) - 1 } })
@@ -38,10 +35,6 @@ export class DetailViewComponent {
   }
 
   loadNext(): void {
-    if (this.currentPokemonNum + 1 == this.currentPage?.total) {
-      this.lastPage = true
-    }
-
     //Same logic as above method, just for loading next instead of previous
     if (this.currentPokemonNum - this.getPageOffset() == this.currentPage?.limit) {
       this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage + 1), 'pokeNum': 1 } })
@@ -73,7 +66,7 @@ export class DetailViewComponent {
   ngOnInit(): void {
     //Checks to see if this is a result from searching for pokemon
     if (this.route.snapshot.queryParamMap.get('searchResult') == 'true') {
-      this.lastPage = true
+      this.totalPages = 1
       this.pokeSrv.getDetails(this.route.snapshot.queryParamMap.get('name')!).subscribe(pokemon => {
         this.currentPokemon = pokemon
       })

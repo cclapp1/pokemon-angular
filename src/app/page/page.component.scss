@@ -3,6 +3,11 @@
     font-size: var(--fontSize);
 }
 
+.pageCounts {
+    display: flex;
+    justify-content: center;
+}
+
 .navBtn {
     font-size: var(--fontSize);
     font-family: 'pokemon';

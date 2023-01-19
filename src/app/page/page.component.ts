@@ -6,10 +6,8 @@ import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/co
   styleUrls: ['./page.component.scss']
 })
 export class PageComponent {
-  @Input()
-  currentPage!: Number
-  @Input()
-  lastPage!: boolean
+  @Input() currentPage!: number
+  @Input() lastPage!: number
 
   @Input() @HostBinding('style.--fontSize') fontSize = '20px'
   @Input() @HostBinding('style.--btnColor') btnColor = "rgb(44, 104, 164)"

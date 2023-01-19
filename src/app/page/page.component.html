@@ -1,6 +1,10 @@
-<div class="container">
+<div *ngIf="currentPage" class="container">
     <button class="navBtn" *ngIf="currentPage > 1" (click)="prevClicked.emit()">Prev</button>
-    <span *ngIf="currentPage"> | </span>
-    <button class="navBtn" *ngIf="!lastPage" (click)="nextClicked.emit()">Next</button>
-    <h2 *ngIf="currentPage">{{currentPage}}</h2>
+    <span *ngIf="currentPage != lastPage"> | </span>
+    <button class="navBtn" *ngIf="currentPage != lastPage" (click)="nextClicked.emit()">Next</button>
+    <div class="pageCounts">
+        <h2>{{currentPage}}</h2>
+        <h2 *ngIf="lastPage">&nbsp;of&nbsp;</h2>
+        <h2 *ngIf="lastPage">{{lastPage}}</h2>
+    </div>
 </div>

@@ -12,7 +12,7 @@ import { PokemonService } from '../services/pokemon.service';
 export class ListComponent {
 
   pokePage: Page | undefined
-  lastPage: boolean = false
+  totalPages: number = 1
   unsubscribe$: Subject<void> = new Subject<void>()
 
   speciesChecked: boolean = false
@@ -23,18 +23,15 @@ export class ListComponent {
 
   loadNext(): void {
     this.router.navigate([''], { queryParams: { 'page': Number(this.pokePage?.currentPage) + 1 } })
-    if (Math.ceil(this.pokePage!.total / 20) == this.pokePage!.currentPage + 1) {
-      this.lastPage = true
-    }
   }
   loadPrev(): void {
     this.router.navigate([''], { queryParams: { 'page': Number(this.pokePage?.currentPage) - 1 } })
-    this.lastPage = false
   }
 
   changePage(page?: number, limit?: number): void {
     this.pokeSrv.getAll(page, limit).subscribe(page => {
       this.pokePage = page
+      this.totalPages = Math.ceil(page.total / page.limit)
     })
   }
 
@@ -54,11 +51,11 @@ export class ListComponent {
     //Search case for the species
     if (!this.habitatChecked && this.speciesChecked) {
       this.isSearch = true
+      this.totalPages = 1
       this.pokeSrv.filterByType(this.query).pipe(concatMap(list => {
         return this.pokeSrv.getManyByName(list.pokemonOfType!)
       })).subscribe(finalList => {
         this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
-        this.lastPage = true
       })
     }
 
@@ -69,7 +66,6 @@ export class ListComponent {
         return this.pokeSrv.getManyByName(list.pokemon_species)
       })).subscribe(finalList => {
         this.pokePage = new Page(1, finalList.length, finalList.length, finalList)
-        this.lastPage = true
       })
     }
 

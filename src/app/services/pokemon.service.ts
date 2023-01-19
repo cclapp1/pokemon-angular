@@ -20,14 +20,16 @@ export class PokemonService {
           return item.name
         })
         return this.getManyByName(pokelist.results).pipe(map(pokemonObj => {
-          return pokemonObj
+          pokelist.results = pokemonObj
+          return pokelist
         }))
       }),
       map((data: any) => {
         let pokeList: Pokemon[] = []
-        data.forEach((p: any) => {
+        data.results.forEach((p: any) => {
           pokeList.push(p)
         })
+
         return new Page(page, data.count, numPokemon, pokeList)
       }))
   }
@@ -69,7 +71,7 @@ export class PokemonService {
 
   getMoves(moves: any[]): Observable<Move[]> {
     let returnArr: Observable<Move>[] = []
-    for (let i = 0; i < moves.length && i < 5; i++) {
+    for (let i = 0; i < moves.length && i < 50; i++) {
       returnArr.push(
         this.http.get(`${this.baseURL}/move/${moves[i].move.name}`).pipe(map((m: any) => {
           return new Move(m.name, m.accuracy, m.power, m.pp, m.type.name, m.flavor_text_entries[0]?.flavor_text)
