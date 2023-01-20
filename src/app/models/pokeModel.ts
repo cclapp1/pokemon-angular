@@ -12,7 +12,6 @@ export class Pokemon {
     types: PokeType[]
 
 
-
     constructor(n: string, h: number, b: number, w: number, i: number, img: string[], t: PokeType[], m?: Move[]) {
         this.name = n
         this.height = h

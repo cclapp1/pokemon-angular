@@ -8,5 +8,4 @@ import { Pokemon } from '../models/pokeModel';
 })
 export class DetailComponent {
   @Input() currentPokemon: Pokemon | undefined
-
 }
