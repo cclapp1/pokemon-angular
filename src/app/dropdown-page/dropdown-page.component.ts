@@ -30,6 +30,7 @@ export class DropdownPageComponent {
 
   //Resets the module back to the beginning if the first dropdown is unselected
   resetVars(): void {
+    this.isLoading = false
     this.selectedPokemon = undefined
     this.selectedPokemonStr = this.noSelectionStr
     this.pokemonListStr = []
@@ -48,8 +49,9 @@ export class DropdownPageComponent {
 
   onPokemonSelect(): void {
     this.isLoading = true
+    this.selectedPokemon = undefined
     //If nothing is selected reset the pokemon
-    if (this.selectedPokemonStr === this.noSelectionStr) this.selectedPokemon = undefined
+    if (this.selectedPokemonStr === this.noSelectionStr) { this.selectedPokemon = undefined; this.isLoading = false }
 
     let unFormattedName = unFormatName(this.selectedPokemonStr)
 

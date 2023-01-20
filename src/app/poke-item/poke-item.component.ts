@@ -19,7 +19,7 @@ export class PokeItemComponent {
   mainImage: string | undefined
 
   //Called when the pokemon object is not null to style the componenet
-  loadColorInfo(): void {
+  ngOnInit(): void {
     this.type1Color = this.pokemon!.types[0].color
     if (this.pokemon?.types[1]?.color) this.type2Color = this.pokemon.types[1].color
     else this.type2Color = this.pokemon!.types[0].color
@@ -33,6 +33,7 @@ export class PokeItemComponent {
 
   imgHover(): void {
     this.mainImage = this.pokemon?.image[1]
+
   }
 
   imgUnhover(): void {

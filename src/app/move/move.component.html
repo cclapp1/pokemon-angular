@@ -9,7 +9,7 @@
     <span *ngIf="move.pp">PP: <i>{{move.pp}}</i></span>
     <br>
 
-    <div *ngIf="move.desc">Description: "{{move.desc}}"</div>
+    <div id="desc" *ngIf="move.desc">Description: "{{move.desc}}"</div>
     <br>
 
     <app-page [fontSize]="'10px'" [btnColor]="'#ff6600'" [btnBorder]="'white'" [lastPage]="moves.length"

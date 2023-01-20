@@ -13,7 +13,9 @@
 </div>
 
 <div id="comp">
-    <app-poke-item [pokemon]="selectedPokemon"></app-poke-item>
-    <app-detail [currentPokemon]="selectedPokemon"></app-detail>
+    <div *ngIf="selectedPokemon">
+        <app-poke-item [pokemon]="selectedPokemon"></app-poke-item>
+        <app-detail [currentPokemon]="selectedPokemon"></app-detail>
+    </div>
     <app-loader [showLoader]="isLoading"></app-loader>
 </div>

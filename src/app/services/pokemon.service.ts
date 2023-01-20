@@ -89,7 +89,16 @@ export class PokemonService {
     for (let i = 0; i < moves.length && i < moves.length; i++) {
       returnArr.push(
         this.http.get(`${this.baseURL}/move/${moves[i].move.name}`).pipe(map((m: any) => {
-          return new Move(m.name, m.accuracy, m.power, m.pp, m.type.name, m.flavor_text_entries[0]?.flavor_text)
+          //Finds the first english text string for the description
+          //Sometimes the first result is a non english string
+          let englishDesc: string = ''
+          for (let i = 0; i < m.flavor_text_entries.length; i++) {
+            if (m.flavor_text_entries[i]?.language.name == 'en') {
+              englishDesc = m.flavor_text_entries[i]?.flavor_text
+              break
+            }
+          }
+          return new Move(m.name, m.accuracy, m.power, m.pp, m.type.name, englishDesc)
         }))
       )
     }

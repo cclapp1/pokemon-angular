@@ -1,5 +1,4 @@
 <div class="pokeContent" *ngIf="pokemon" (mouseleave)="imgUnhover()" (mouseenter)="imgHover()">
-    {{loadColorInfo()}}
     <div><img id="image" src="{{mainImage}}" /></div>
     <button class="pokeBtn typeBackground">{{pokemon.formattedName}}</button>
 </div>
