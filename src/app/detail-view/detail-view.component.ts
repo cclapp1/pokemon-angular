@@ -17,6 +17,8 @@ export class DetailViewComponent {
 
   unsubscibe$: Subject<void> = new Subject<void>()
 
+  isLoading: boolean = false
+
   @HostBinding('style.--type1') type1: string = ''
   @HostBinding('style.--type2') type2: string = ''
 
@@ -28,6 +30,7 @@ export class DetailViewComponent {
   }
 
   loadPrev(): void {
+    this.isLoading = true
     //Checks to see if the page needs to be changed (1st case), advances the pokemon (else)
     if (this.currentPokemonNum - this.getPageOffset() == 1) this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage - 1), 'pokeNum': 20 } })
     else this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage), 'pokeNum': Number(this.currentPokemonNum) - 1 } })
@@ -35,6 +38,7 @@ export class DetailViewComponent {
   }
 
   loadNext(): void {
+    this.isLoading = true
     //Same logic as above method, just for loading next instead of previous
     if (this.currentPokemonNum - this.getPageOffset() == this.currentPage?.limit) {
       this.router.navigate(['details'], { queryParams: { 'page': Number(this.currentPage!.currentPage + 1), 'pokeNum': 1 } })
@@ -64,10 +68,12 @@ export class DetailViewComponent {
   }
 
   ngOnInit(): void {
+    this.isLoading = true
     //Checks to see if this is a result from searching for pokemon
     if (this.route.snapshot.queryParamMap.get('searchResult') == 'true') {
       this.totalPages = 1
       this.pokeSrv.getDetails(this.route.snapshot.queryParamMap.get('name')!).subscribe(pokemon => {
+        this.isLoading = false
         this.currentPokemon = pokemon
       })
     } else {
@@ -76,6 +82,7 @@ export class DetailViewComponent {
         concatMap((query: any) => this.loadPage(query)),
         concatMap((query: any) => this.loadPokemon(query))
       ).subscribe((query: any) => {
+        this.isLoading = false
         this.currentPage = query.page
         this.currentPokemon = query.pokemon
         this.currentPokemonNum = Number(query.get('pokeNum'))

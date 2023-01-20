@@ -4,4 +4,7 @@
         (nextClicked)="loadNext()" (prevClicked)="loadPrev()"></app-page>
 </div>
 
+<div class="center">
+    <app-loader [showLoader]="isLoading"></app-loader>
+</div>
 <app-detail [currentPokemon]="currentPokemon"></app-detail>

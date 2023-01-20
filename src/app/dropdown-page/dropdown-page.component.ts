@@ -20,6 +20,7 @@ export class DropdownPageComponent {
   //vars for components
   selectedPokemon: Pokemon | undefined
   noSelectionStr: string = '---'
+  isLoading: boolean = false
 
   ngOnInit(): void {
     this.pokeSrv.getAllTypes().subscribe(types => {
@@ -46,12 +47,14 @@ export class DropdownPageComponent {
   }
 
   onPokemonSelect(): void {
+    this.isLoading = true
     //If nothing is selected reset the pokemon
     if (this.selectedPokemonStr === this.noSelectionStr) this.selectedPokemon = undefined
 
     let unFormattedName = unFormatName(this.selectedPokemonStr)
 
     this.pokeSrv.getDetails(unFormattedName).subscribe(pokemon => {
+      this.isLoading = false
       this.selectedPokemon = pokemon
     })
   }

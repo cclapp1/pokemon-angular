@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MoveComponent } from './move/move.component';
 import { DropdownPageComponent } from './dropdown-page/dropdown-page.component';
 import { DetailComponent } from './detail/detail.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DetailComponent } from './detail/detail.component';
     MoveComponent,
     DropdownPageComponent,
     DetailComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

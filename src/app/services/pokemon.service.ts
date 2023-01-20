@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { concat, concatMap, Observable, of, take, tap, zip } from 'rxjs'
+import { concatMap, Observable, zip } from 'rxjs'
 import { map } from 'rxjs'
 
-import { Habitat, Move, Page, pokeModel, Pokemon, PokeType, pokeTypeList } from '../models/pokeModel'
+import { Habitat, Move, Page, Pokemon, PokeType, pokeTypeList } from '../models/pokeModel'
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ import { Habitat, Move, Page, pokeModel, Pokemon, PokeType, pokeTypeList } from 
 export class PokemonService {
   baseURL: string = 'https://pokeapi.co/api/v2'
 
+  //Gets all the pokemon for the home page.
   getAll(page: number = 1, numPokemon: number = 20): Observable<Page> {
     const offset = 20 * (page - 1)
     return this.http.get<Pokemon>(`${this.baseURL}/pokemon`, { params: { 'offset': offset, 'limit': String(numPokemon) } }).pipe(
@@ -34,6 +35,7 @@ export class PokemonService {
       }))
   }
 
+  //Gets details of the pokemon for the details page. Includes moves
   getDetails(name: string): Observable<Pokemon> {
     return this.http.get<Pokemon>(`${this.baseURL}/pokemon/${name}`).pipe(
       concatMap((details: any) => {
@@ -50,6 +52,7 @@ export class PokemonService {
       }))
   }
 
+  //Gets a pokemon by name, simiar to getDetails but missing the moves API call due to slowness
   getByName(name: string): Observable<Pokemon> {
     return this.http.get<Pokemon>(`${this.baseURL}/pokemon/${name}`).pipe(
       map((item: any) => {
@@ -79,9 +82,11 @@ export class PokemonService {
   }
 
 
+  //Gets a list of moves from an array of pokemon
   getMoves(moves: any[]): Observable<Move[]> {
     let returnArr: Observable<Move>[] = []
-    for (let i = 0; i < moves.length && i < 50; i++) {
+    //Limiter for the moves so that call can be limited
+    for (let i = 0; i < moves.length && i < moves.length; i++) {
       returnArr.push(
         this.http.get(`${this.baseURL}/move/${moves[i].move.name}`).pipe(map((m: any) => {
           return new Move(m.name, m.accuracy, m.power, m.pp, m.type.name, m.flavor_text_entries[0]?.flavor_text)
@@ -93,9 +98,9 @@ export class PokemonService {
 
 
 
+  //Gets all pokemon matching an environment string
   getEnv(name: string): Observable<Habitat> {
     return this.http.get<Habitat>(`${this.baseURL}/pokemon-habitat/${name}`).pipe(map((m: any) => {
-      //console.log("getEnv", m)
       let pokeList = new Habitat();
       m.pokemon_species.forEach((pokemon_species: any) => {
         pokeList.pokemon_species?.push(pokemon_species.name)
@@ -105,14 +110,13 @@ export class PokemonService {
   }
 
 
+  //Gets all pokemon matching a type string
   filterByType(type: string) {
     return this.http.get(`${this.baseURL}/type/${type}`).pipe(map((item: any) => {
       let pokeList = new pokeTypeList();
       item.pokemon.forEach((pokemon: any) => {
         pokeList.pokemonOfType?.push(pokemon.pokemon.name);
-        //console.log("pokemon name", pokemon.pokemon.name);
       })
-      //console.log("This is my pokelist", pokeList);
       return pokeList;
     }))
 
