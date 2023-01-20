@@ -1,7 +1,5 @@
-<div class="pokeContent" (mouseleave)="imgUnhover()" (mouseenter)="imgHover()">
+<div class="pokeContent" *ngIf="pokemon" (mouseleave)="imgUnhover()" (mouseenter)="imgHover()">
+    {{loadColorInfo()}}
     <div><img id="image" src="{{mainImage}}" /></div>
-    <button [style.--type1Color]="type1Color" [style.--type2Color]="type2Color" [style.--type1Dark]="type1Dark"
-        [style.--type2Dark]="type2Dark" class=" pokeBtn typeBackground">{{pokemon.name.substring(0,1).toUpperCase()
-        +
-        pokemon.name.substring(1,pokemon.name.length)}}</button>
+    <button class="pokeBtn typeBackground">{{pokemon.formattedName}}</button>
 </div>

@@ -11,6 +11,8 @@ import { PokeItemComponent } from './poke-item/poke-item.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { MoveComponent } from './move/move.component';
+import { DropdownPageComponent } from './dropdown-page/dropdown-page.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { MoveComponent } from './move/move.component';
     PokeItemComponent,
     SearchComponent,
     MoveComponent,
+    DropdownPageComponent,
+    DetailComponent,
   ],
   imports: [
     BrowserModule,

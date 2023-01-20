@@ -1,0 +1,18 @@
+<div id="dropdowns">
+    <h4>Type:</h4>
+    <select [(ngModel)]="selectedType" (change)="onTypeSelect()">
+        <option>{{noSelectionStr}}</option>
+        <option *ngFor="let type of types">{{type.formattedName}}</option>
+    </select>
+
+    <h4>Pokemon:</h4>
+    <select [(ngModel)]="selectedPokemonStr" (change)="onPokemonSelect()">
+        <option>{{noSelectionStr}}</option>
+        <option *ngFor="let pokemon of pokemonListStr">{{pokemon}}</option>
+    </select>
+</div>
+
+<div id="comp">
+    <app-poke-item [pokemon]="selectedPokemon"></app-poke-item>
+    <app-detail [currentPokemon]="selectedPokemon"></app-detail>
+</div>

@@ -87,10 +87,6 @@ export class DetailViewComponent {
     }
   }
 
-  formatName(input: string): string {
-    return input.substring(0, 1).toUpperCase() + input.substring(1, input.length)
-  }
-
   ngOnDestroy(): void {
     this.unsubscibe$.next()
     this.unsubscibe$.complete()

@@ -1,5 +1,8 @@
+import { formatName } from "./pokeFunc"
+
 export class Pokemon {
     name: string
+    formattedName: string
     height: number
     baseExp: number
     weight: number
@@ -7,6 +10,8 @@ export class Pokemon {
     image: string[]
     moves?: Move[]
     types: PokeType[]
+
+
 
     constructor(n: string, h: number, b: number, w: number, i: number, img: string[], t: PokeType[], m?: Move[]) {
         this.name = n
@@ -17,6 +22,8 @@ export class Pokemon {
         this.image = img
         this.moves = m
         this.types = t
+
+        this.formattedName = formatName(this.name)
     }
 }
 
@@ -73,7 +80,7 @@ export class PokeType {
         this.name = n
         this.color = this.pokeColors[key]
         this.darkColor = this.pokeColorsDark[key]
-        this.formattedName = n.substring(0, 1).toUpperCase() + n.substring(1, n.length)
+        this.formattedName = formatName(n)
     }
 }
 
@@ -88,9 +95,7 @@ export class Move {
 
     constructor(n: string, a: number, po: number, pp: number, type: string, d?: string) {
         //Formats the move so that the - is removed and words are capitalised
-        this.formattedName = n.split('-').map(str => {
-            return str.substring(0, 1).toUpperCase() + str.substring(1, str.length)
-        }).join('-').replaceAll('-', ' ')
+        this.formattedName = formatName(n)
         this.name = n
         this.accuracy = a
         this.power = po

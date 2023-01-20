@@ -3,25 +3,5 @@
     <app-page [lastPage]="this.currentPage?.total || 0" [currentPage]="getPageOffset() + currentPokemonNum"
         (nextClicked)="loadNext()" (prevClicked)="loadPrev()"></app-page>
 </div>
-<div class="container" *ngIf="currentPokemon">
-    <div>
-        <h1>Name: <i>{{formatName(currentPokemon.name)}}</i></h1>
 
-        <div id="types">
-            <h1 class="type1">{{formatName(currentPokemon.types[0].name)}}</h1>
-            <h1 *ngIf="currentPokemon.types[1]">&nbsp;|&nbsp;</h1>
-            <h1 *ngIf="currentPokemon.types[1]" class="type2">
-                {{formatName(currentPokemon.types[1].name)}}</h1>
-        </div>
-
-        <h3>Weight: <i>{{currentPokemon.weight}}</i></h3>
-        <h3>Height: <i>{{currentPokemon.height}}</i></h3>
-        <h3>Base Experience: <i>{{currentPokemon.baseExp}}</i></h3>
-        <h3>ID: <i>{{currentPokemon.id}}</i></h3>
-        <img src="{{currentPokemon.image[0]}}" />
-        <img src="{{currentPokemon.image[1]}}" />
-
-        <h2>Moves:</h2>
-        <app-move [moves]="currentPokemon.moves!"></app-move>
-    </div>
-</div>
+<app-detail [currentPokemon]="currentPokemon"></app-detail>

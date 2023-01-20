@@ -60,11 +60,21 @@ export class PokemonService {
       }))
   }
 
+  //Gets a list of pokemon from a list of names
   getManyByName(pokeList: any[]): Observable<any[]> {
     return zip(...pokeList.map(p => {
       return this.getByName(p).pipe(map(pokeObj => {
         return pokeObj
       }))
+    }))
+  }
+
+  //Gets all the possible types from the API
+  getAllTypes(): Observable<PokeType[]> {
+    return this.http.get<PokeType>(`${this.baseURL}/type`).pipe(map((types: any) => {
+      return types.results.map((type: any) => {
+        return new PokeType(type.name)
+      })
     }))
   }
 
