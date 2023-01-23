@@ -1,8 +1,6 @@
 <div class="center">
-    <select [(ngModel)]="selectedGeneration" (change)="genSelect()">
-        <option *ngFor="let generation of generations">{{generation}}</option>
-    </select>
-    <app-loader [showLoader]="isLoading"></app-loader>
+    <app-dropdown (onSelect)="onSelect()" [items]=" generations" (selectedOption)="selectedGeneration"></app-dropdown>
+    <app-loader [showLoader]=" isLoading"></app-loader>
 </div>
 
 <div *ngIf="pokeList">
