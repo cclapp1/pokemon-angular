@@ -14,7 +14,7 @@ export class GenerationComponent {
 
   isLoading: boolean = false
 
-  genSelect(): void {
+  onSelect(): void {
     this.isLoading = true
     this.pokeList = []
     this.pokeSrv.getPokemonFromGeneration(this.selectedGeneration).subscribe(genList => {

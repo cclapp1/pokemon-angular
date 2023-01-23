@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url('../../assets/pokeFont.ttf');
+}
+
+#dropdowns {
+    font-family: 'pokemon';
+    display: flex;
+    justify-content: center;
+}
+
+select {
+    font-family: 'pokemon';
+    background-color: yellow;
+    border-radius: 10px;
+}

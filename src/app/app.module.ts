@@ -15,6 +15,7 @@ import { DropdownPageComponent } from './dropdown-page/dropdown-page.component';
 import { DetailComponent } from './detail/detail.component';
 import { LoaderComponent } from './loader/loader.component';
 import { GenerationComponent } from './generation/generation.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { GenerationComponent } from './generation/generation.component';
     DetailComponent,
     LoaderComponent,
     GenerationComponent,
+    DropdownComponent,
   ],
   imports: [
     BrowserModule,

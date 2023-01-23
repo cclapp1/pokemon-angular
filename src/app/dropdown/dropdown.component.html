@@ -1,0 +1,3 @@
+<select [(ngModel)]="selectedOption" (change)="onSelect.emit()">
+    <option *ngFor="let item of items">{{item}}</option>
+</select>
