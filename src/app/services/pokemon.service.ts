@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { concatMap, Observable, zip } from 'rxjs'
+import { catchError, concat, concatMap, Observable, of, zip } from 'rxjs'
 import { map } from 'rxjs'
 
 import { Habitat, Move, Page, Pokemon, PokeType, pokeTypeList } from '../models/pokeModel'
@@ -64,8 +64,8 @@ export class PokemonService {
   }
 
   //Gets a list of pokemon from a list of names
-  getManyByName(pokeList: any[]): Observable<any[]> {
-    return zip(...pokeList.map(p => {
+  getManyByName(pokeList: any[]): Observable<Pokemon[]> {
+    return zip(pokeList.map(p => {
       return this.getByName(p).pipe(map(pokeObj => {
         return pokeObj
       }))
@@ -99,10 +99,62 @@ export class PokemonService {
             }
           }
           return new Move(m.name, m.accuracy, m.power, m.pp, m.type.name, englishDesc)
-        }))
+        }),
+          catchError(err => {
+            let newMoves: Move[] = []
+            newMoves.push(new Move('error getting moves', 0, 0, 0, 'normal'))
+            return newMoves
+          }))
       )
     }
     return zip(returnArr)
+  }
+
+  //Gets a list of all the pokemon generations
+  getGenerations(): Observable<string[]> {
+    return this.http.get<String[]>(`${this.baseURL}/generation`).pipe(map((genList: any) => {
+      return genList.results.map((gen: any) => {
+        return gen.name
+      })
+    }))
+  }
+
+  //Gets a list of pokemon from a species.
+  getPokemonFromSpecies(name: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseURL}/pokemon-species/${name}`).pipe(map((species: any) => {
+      return species.varieties.map((variery: any) => {
+        return variery.pokemon.name
+      })
+    }))
+  }
+
+  //Gets a list of pokemon from a generation
+  getPokemonFromGeneration(gen: string): Observable<Pokemon[]> {
+    return this.http.get(`${this.baseURL}/generation/${gen}`).pipe(
+      map((pokeList: any) => {
+        return pokeList.pokemon_species.map((listItem: any) => {
+          return listItem.name
+        })
+      }),
+      //Some pokemon have different variations for the species. Concats all of them into a single map
+      concatMap((pokeList: string[]) => {
+        return zip(
+          pokeList.map(name => {
+            return this.getPokemonFromSpecies(name)
+          })
+        )
+      }),
+      concatMap((pokeList: string[][]) => {
+        let finalArr: string[] = []
+        pokeList.forEach(item => {
+          finalArr = finalArr.concat(item)
+        })
+        return of(finalArr)
+      }),
+      concatMap((pokeNames: string[]) => {
+        return this.getManyByName(pokeNames)
+      })
+    )
   }
 
 

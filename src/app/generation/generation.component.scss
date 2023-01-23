@@ -1,0 +1,40 @@
+.container {
+    width: calc(33% - 20px);
+    display: inline-block;
+    margin: 10px;
+}
+
+
+@media(max-width: 1000px) {
+    .container {
+        width: calc(50% - 20px);
+    }
+}
+
+@media(max-width: 600px) {
+    .container {
+        width: calc(100% - 20px);
+    }
+}
+
+@font-face {
+    font-family: 'pokemon';
+    src: url('../../assets/pokeFont.ttf');
+}
+
+#dropdowns {
+    font-family: 'pokemon';
+    display: flex;
+    justify-content: center;
+}
+
+select {
+    font-family: 'pokemon';
+    background-color: yellow;
+    border-radius: 10px;
+}
+
+a {
+    text-decoration: none;
+    cursor: default;
+}
